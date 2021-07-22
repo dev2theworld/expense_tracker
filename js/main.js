@@ -15,6 +15,42 @@ const dummyTransactions = [
 
 let transactions = dummyTransactions;
 
+// 3b - Add transaction
+function addTransaction(e) {
+  e.preventDefault();
+
+  // 3c - Check if fields are not empty
+  if(text.value.trim() === '' || amount.value.trim() === '') {
+    alert('Please add text and amount');
+  } else {
+    // 3d - Build object containing id, text and amount
+    const transaction = {
+      id: generateID(),
+      text: text.value,
+      amount: +amount.value
+    };
+
+    // 3f - Push the object to array
+    transactions.push(transaction);
+
+    // 3g - Add transaction to the DOM
+    addTransactionDOM(transaction);
+
+    // 3h - Update values & clear input
+    updateValues();
+
+    text.value = '';
+    amount.value = '';
+
+    console.log(transaction);
+  }
+}
+
+// 3e - Generate random id
+function generateID() {
+  return Math.floor(Math.random() * 1000000);
+}
+
 // 1a - Add transactions to DOM list
 function addTransactionDOM(transaction) {
   // 1b - Get sign
@@ -63,3 +99,6 @@ function init() {
 }
 
 init();
+
+// 3a - Event listeners
+form.addEventListener('submit', addTransaction);
